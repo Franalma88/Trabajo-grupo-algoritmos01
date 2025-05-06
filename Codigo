@@ -134,7 +134,7 @@ def grafico_puntos_vs_minutos():
     plt.tight_layout()
     plt.show()
 
-    def salir():
+def salir():
     print("Saliendo del programa. ¡Hasta luego!")
     exit()
     
