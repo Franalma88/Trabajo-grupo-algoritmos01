@@ -1,0 +1,75 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Ruta al archivo CSV
+file_path = "datos.csv"  
+
+# Cargar el archivo CSV con el separador correcto
+df = pd.read_csv(file_path, sep=';')
+
+# Convertir a lista de diccionarios
+jugadores = df.to_dict(orient='records')
+
+# Funcion listar jugadores --> Muestra todos los  elementos 
+def listar_jugadores():
+    for jugador in jugadores:
+        print(jugador["Jugador"])
+
+
+def mostrar_estadisticas(nombre):
+    for jugador in jugadores:
+        if jugador['Jugador'].lower() == nombre.lower():
+            print(f"\nEstadísticas de {jugador['Jugador']}:")
+            for clave, valor in jugador.items():
+                print(f"  {clave}: {valor}")
+            return
+    print(f"No se encontró ningún jugador con el nombre '{nombre}'.")
+    
+def valor_estadistica(nombre, estadistica):
+    for jugador in jugadores:
+        if jugador['Jugador'].lower() == nombre.lower():
+            if estadistica in jugador:
+                valor = jugador[estadistica]
+                print(f"{estadistica} de {jugador['Jugador']}: {valor}")
+                return valor
+            else:
+                print(f"La estadística '{estadistica}' no existe para este jugador.")
+                return None
+    print(f"No se encontró ningún jugador con el nombre '{nombre}'.")
+    return None
+  
+def actualizar_estadisticas(nombre, estadistica, valor):
+    for jugador in jugadores:
+        if jugador['Jugador'].lower() == nombre.lower():
+            if estadistica in jugador:
+                try:
+                    # Si la estadística es numérica, actualizamos sumando el valor
+                    jugador[estadistica] = type(jugador[estadistica])(valor)
+                    print(f"{estadistica} de {jugador['Jugador']} actualizada a {jugador[estadistica]}")
+                except Exception as e:
+                    print(f"Error al actualizar la estadística: {e}")
+            else:
+                print(f"La estadística '{estadistica}' no existe para este jugador.")
+            return
+    print(f"No se encontró ningún jugador con el nombre '{nombre}'.")
+
+def mejor_jugador(estadistica):
+    mejor = None
+    max_valor = float('-inf')
+
+    for jugador in jugadores:
+        if estadistica in jugador:
+            try:
+                valor = jugador[estadistica]
+                if isinstance(valor, (int, float)) and valor > max_valor:
+                    max_valor = valor
+                    mejor = jugador
+            except:
+                continue
+
+    if mejor:
+        print(f"El mejor jugador en '{estadistica}' es {mejor['Jugador']} con un valor de {max_valor}")
+        return mejor
+    else:
+        print(f"No se pudo calcular el mejor jugador en la estadística '{estadistica}'.")
+        return None
