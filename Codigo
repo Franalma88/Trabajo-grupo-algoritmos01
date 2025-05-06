@@ -73,3 +73,63 @@ def mejor_jugador(estadistica):
     else:
         print(f"No se pudo calcular el mejor jugador en la estadística '{estadistica}'.")
         return None
+
+def ordenar_jugadores(estadistica, descendente):
+    try:
+        if descendente.lower() == "a":
+            descendente=False
+        else:
+             descendente=True   
+        jugadores_ordenados = sorted(
+            jugadores,
+            key=lambda j: int(j.get(estadistica, 0)),
+            reverse=descendente
+        )
+        print(f"\nJugadores ordenados por '{estadistica}' ({'descendente' if descendente else 'ascendente'}):")
+        for jugador in jugadores_ordenados:
+            print(f"{jugador['Jugador']}: {jugador.get(estadistica, 'N/A')}")
+        return jugadores_ordenados
+    except Exception as e:
+        print(f"Error al ordenar por '{estadistica}': {e}")
+        return []
+
+def promedio_puntos():
+    total_puntos = 0
+    total_jugadores = 0
+
+    for jugador in jugadores:
+        try:
+            puntos = float(jugador.get('PTS', 0))
+            total_puntos += puntos
+            total_jugadores += 1
+        except:
+            continue
+
+    if total_jugadores > 0:
+        promedio = total_puntos / total_jugadores
+        print(f"Promedio de puntos por jugador en la temporada es : {promedio:.2f}")
+        return promedio
+    else:
+        print("No hay jugadores válidos para calcular el promedio.")
+        return 0
+
+def grafico_puntos_vs_minutos():
+    nombres = [j['Jugador'] for j in jugadores]
+    minutos = [j['MinutosJugados'] for j in jugadores]
+    puntos = [j['PTS'] for j in jugadores]
+
+    plt.figure(figsize=(10, 6))
+    plt.scatter(minutos, puntos)
+
+    plt.title("Puntos (PTS) vs Minutos Jugados ")
+    plt.xlabel("Minutos Jugados Totales ")
+    plt.ylabel("Puntos Anotados totales (PTS)")
+    plt.grid(True)
+
+    # Etiquetas para algunos puntos
+    for nombre, x, y in zip(nombres, minutos, puntos): 
+             
+        plt.text(x, y, f"{nombre}/{y}", fontsize=8)
+
+    plt.tight_layout()
+    plt.show()
