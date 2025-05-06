@@ -18,5 +18,6 @@ una base de datos de baloncesto libre, eligimos la liga endesa de 2024-2025 y el
 seleccionando las estadisticas totales --> como excel traducimos muchas de las cabezeras y las pasamos a csv,
 luego a traves de codigo pasamos nuestro csv a listas y dicionarios.
 ![Image](https://github.com/user-attachments/assets/4d4cd509-c842-4574-ba45-e6f01686d893)
+![Image](https://github.com/user-attachments/assets/28a4fe0d-7c04-481b-bc36-f779c3b7e515)
 ### Activida Participativa
 Seria interesante añadirle unos graficos en los que viesemos la correlacion de minutos jugaso con puntos anotados.
