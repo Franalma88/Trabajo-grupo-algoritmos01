@@ -133,3 +133,51 @@ def grafico_puntos_vs_minutos():
 
     plt.tight_layout()
     plt.show()
+
+    def salir():
+    print("Saliendo del programa. ¡Hasta luego!")
+    exit()
+    
+# Menú principal
+def menu():
+    while True:
+        print("\nMENÚ PRINCIPAL")
+        print("1. Mostrar estadísticas de un jugador")
+        print("2. Listar todos los jugadores")
+        print("3. Actualizar estadisticas de un jugador")
+        print("4. Mejor Jugador en Base a estadistica")
+        print("5. Ordenar Jugadores por estadistica")
+        print("6. Promedio")
+        print("7. Graficas")
+        print("8. Salir")
+
+        opcion = input("Selecciona una opción (1-8): ")
+        if opcion == '1':
+            nombre = input("Nombre del jugador: ")
+            mostrar_estadisticas(nombre)
+        elif opcion == '2':
+            listar_jugadores()
+        elif opcion == '3':
+              nombre = input("Nombre del jugador: ")
+              estadistica=input("Nombre de la estadistica: ")
+              valor_estadistica(nombre, estadistica)
+              valor=input("Valor a cambiar: ")
+              actualizar_estadisticas(nombre, estadistica, valor)
+        elif opcion == '4':
+             estadistica=input("Nombre de la estadistica: ")
+             mejor_jugador(estadistica)   
+        elif opcion == '5':
+             estadistica=input("Nombre de la estadistica: ")
+             orden=input("Ascendente -->(A) / Descendente -->(D): ")
+             ordenar_jugadores(estadistica, orden)
+        elif opcion == '6':   
+             promedio_puntos()
+        elif opcion == '7':
+             grafico_puntos_vs_minutos()
+        elif opcion == '8':
+            salir()
+        else:
+            print("Opción no válida. Intenta de nuevo.")
+
+# Ejecutar menú
+menu()
